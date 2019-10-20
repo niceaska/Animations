@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Custom View</string>
+    <string name="drawable">Drawable</string>
+    <string name="view">View</string>
+    <string name="value">value</string>
+    <string name="object">object</string>
+    <string name="custom_view">Custom View</string>
+    <string name="format_string">%d км/ч</string>
+</resources>
