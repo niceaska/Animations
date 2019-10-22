@@ -10,6 +10,9 @@ import android.widget.ImageView;
 
 public class ValueAnimationActivity extends AppCompatActivity {
 
+    private ValueAnimator alfaAnimator;
+    private ValueAnimator translationYnimator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,7 +20,7 @@ public class ValueAnimationActivity extends AppCompatActivity {
 
         final ImageView imageView = findViewById(R.id.value_scale);
 
-        ValueAnimator alfaAnimator = ValueAnimator.ofFloat(0f, 1f);
+        alfaAnimator = ValueAnimator.ofFloat(0f, 1f);
         configureAnimaton(alfaAnimator);
         alfaAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -25,9 +28,8 @@ public class ValueAnimationActivity extends AppCompatActivity {
                 imageView.setAlpha((Float) animation.getAnimatedValue());
             }
         });
-        alfaAnimator.start();
 
-        ValueAnimator translationYnimator = ValueAnimator.ofFloat(0f, -100f);
+        translationYnimator = ValueAnimator.ofFloat(0f, -100f);
         configureAnimaton(translationYnimator);
         translationYnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -35,12 +37,25 @@ public class ValueAnimationActivity extends AppCompatActivity {
                 imageView.setTranslationY((Float) animation.getAnimatedValue());
             }
         });
-        translationYnimator.start();
     }
 
     private void configureAnimaton(ValueAnimator animator) {
         animator.setRepeatMode(ValueAnimator.RESTART);
         animator.setRepeatCount(10);
         animator.setDuration(500);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        alfaAnimator.start();
+        translationYnimator.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        alfaAnimator.end();
+        translationYnimator.end();
     }
 }

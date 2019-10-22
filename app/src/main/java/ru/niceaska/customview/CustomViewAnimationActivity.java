@@ -9,13 +9,14 @@ import android.widget.ImageView;
 
 public class CustomViewAnimationActivity extends AppCompatActivity {
 
+    private ObjectAnimator animator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_view_animation);
         Speedometer speedometer = findViewById(R.id.speedometer);
-        ObjectAnimator animator = ObjectAnimator.ofInt(speedometer, "speed", 0, 406);
-        configure(animator).start();
+        animator = ObjectAnimator.ofInt(speedometer, "speed", 0, 406);
+        configure(animator);
     }
 
 
@@ -24,5 +25,17 @@ public class CustomViewAnimationActivity extends AppCompatActivity {
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setRepeatMode(ValueAnimator.REVERSE);
         return animator;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        animator.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        animator.end();
     }
 }
